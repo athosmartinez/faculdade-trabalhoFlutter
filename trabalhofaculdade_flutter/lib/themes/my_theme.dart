@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 ThemeData myTheme = ThemeData(
+  // bottomAppBarColor: Colors
+  //     .green, // Usado especificamente para barras de aplicativos na parte inferior
+  // scaffoldBackgroundColor:
+  //     Colors.red, // Cor de fundo para a maioria dos widgets Scaffold
   primaryColor: Colors.red,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
