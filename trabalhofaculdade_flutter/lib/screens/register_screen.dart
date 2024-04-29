@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/textField.dart';
 
 enum Gender { male, female, other }
 
@@ -49,11 +50,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Image.asset("assets/images/img_logo.png",
                     width: 200, height: 200),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      hintText: 'Nome', prefixIcon: Icon(Icons.person)),
+                CustomTextFormField(
+                  hintText: "Nome",
+                  prefixIcon: Icons.person,
                   controller: _nameController,
-                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 const Padding(
                   padding: EdgeInsets.only(top: 20.0),
@@ -70,54 +70,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 _buildGenderRadio('Masculino', Gender.male),
                 _buildGenderRadio('Feminino', Gender.female),
                 _buildGenderRadio('Outros', Gender.other),
-                TextFormField(
-                  decoration: const InputDecoration(
-                      hintText: 'Email', prefixIcon: Icon(Icons.email)),
+                CustomTextFormField(
+                  hintText: "Email",
+                  prefixIcon: Icons.email,
                   controller: _emailController,
-                  style: Theme.of(context).textTheme.bodyMedium,
                 ),
-                TextFormField(
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  controller: _phoneNumberController,
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ], // Permite apenas dígitos
-                  decoration: const InputDecoration(
-                      hintText: 'Telefone', prefixIcon: Icon(Icons.smartphone)),
-                ),
-                TextFormField(
-                  style: Theme.of(context).textTheme.bodyMedium,
+                CustomTextFormField(
+                    hintText: "Telefone",
+                    prefixIcon: Icons.phone,
+                    controller: _phoneNumberController,
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly]),
+                CustomTextFormField(
+                  hintText: "CPF",
+                  prefixIcon: Icons.edit_document,
                   controller: _documentController,
-                  keyboardType: TextInputType.number,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     CpfInputFormatter(),
                   ],
-                  decoration: const InputDecoration(
-                    hintText: 'CPF',
-                    prefixIcon: Icon(Icons.edit_document),
-                  ),
-                  // Você pode adicionar mais lógica aqui, se necessário
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Senha',
-                    prefixIcon: const Icon(Icons.lock),
-                    suffixIcon: IconButton(
-                      icon: Icon(_obscureText
-                          ? Icons.visibility_off
-                          : Icons.visibility),
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
-                      },
-                    ),
-                  ),
-                  obscureText: _obscureText,
+                CustomTextFormField(
+                  hintText: 'Senha',
+                  prefixIcon: Icons.lock,
                   controller: _passwordController,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  obscureText: true,
+                  isPasswordField: true,
                 ),
                 _buildRegisterButton()
               ],

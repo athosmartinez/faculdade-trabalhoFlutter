@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/textField.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,29 +72,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Image.asset("assets/images/img_logo.png",
                     width: 200, height: 200),
               ),
-              TextFormField(
+              CustomTextFormField(
+                hintText: "Email",
+                prefixIcon: Icons.email,
                 controller: _emailController,
-                decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email), hintText: "Email"),
-                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              TextFormField(
+              CustomTextFormField(
+                hintText: 'Senha',
+                prefixIcon: Icons.lock,
                 controller: _passwordController,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock),
-                  hintText: "Senha",
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscureText ? Icons.visibility_off : Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
-                  ),
-                ),
-                obscureText: _obscureText,
-                style: Theme.of(context).textTheme.bodyMedium,
+                obscureText: true,
+                isPasswordField: true,
               ),
               _buildRememberMeCheckbox(),
               _buildLoginButton()
