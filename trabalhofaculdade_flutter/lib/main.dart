@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalhofaculdade_flutter/screens/login_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/register_screen.dart';
 
 void main() {
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "LoginScreen",
+      initialRoute: "loginScreen",
       routes: {
-        "register": (context) => RegisterScreen(),
+        "loginScreen": (context) =>  LoginScreen(),
+        "registerScreen": (context) => RegisterScreen(),
       },
     );
   }
