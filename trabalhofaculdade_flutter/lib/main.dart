@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/screens/login_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/register_screen.dart';
+import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: myTheme,
       initialRoute: "loginScreen",
       routes: {
-        "loginScreen": (context) =>  LoginScreen(),
+        "loginScreen": (context) => LoginScreen(),
         "registerScreen": (context) => RegisterScreen(),
       },
     );

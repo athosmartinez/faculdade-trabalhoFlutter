@@ -55,6 +55,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: Cambay
+      fonts: 
+        - asset: fonts/Cambay-Regular.ttf
+          weight: 400
+
 
 
   # To add assets to your application, add an assets section, like this:

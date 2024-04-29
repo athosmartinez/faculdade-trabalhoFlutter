@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
 
 enum Gender { male, female, other }
 
@@ -27,7 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-
   bool _obscureText = true;
 
   final TextEditingController _nameController = TextEditingController();
@@ -39,6 +39,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const WavyAppBar(),
       body: SingleChildScrollView(
         child: Form(
           child: Padding(
@@ -46,11 +47,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 100),
-                  child: Image.asset("assets/images/img_logo.png",
-                      width: 200, height: 200),
-                ),
+                Image.asset("assets/images/img_logo.png",
+                    width: 200, height: 200),
                 TextFormField(
                   decoration: const InputDecoration(
                       hintText: 'Nome', prefixIcon: Icon(Icons.person)),
@@ -62,7 +60,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Row(
                     children: [
                       Icon(Icons.transgender),
-                      Text("Gênero"),
+                      Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: Text("Gênero"),
+                      ),
                     ],
                   ),
                 ),
@@ -76,6 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: Theme.of(context).textTheme.bodyMedium,
                 ),
                 TextFormField(
+                  style: Theme.of(context).textTheme.bodyMedium,
                   controller: _phoneNumberController,
                   keyboardType: TextInputType.phone,
                   inputFormatters: [
@@ -85,6 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintText: 'Telefone', prefixIcon: Icon(Icons.smartphone)),
                 ),
                 TextFormField(
+                  style: Theme.of(context).textTheme.bodyMedium,
                   controller: _documentController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -92,7 +95,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     CpfInputFormatter(),
                   ],
                   decoration: const InputDecoration(
-                      hintText: 'CPF', prefixIcon: Icon(Icons.edit_document)),
+                    hintText: 'CPF',
+                    prefixIcon: Icon(Icons.edit_document),
+                  ),
                   // Você pode adicionar mais lógica aqui, se necessário
                 ),
                 TextFormField(

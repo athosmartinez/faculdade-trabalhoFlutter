@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -58,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const WavyAppBar(),
       body: Form(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -65,13 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 100, bottom: 20),
+                padding: const EdgeInsets.only(top: 10, bottom: 20),
                 child: Image.asset("assets/images/img_logo.png",
                     width: 200, height: 200),
               ),
               TextFormField(
                 controller: _emailController,
-                decoration: const InputDecoration(prefixIcon: Icon(Icons.email), hintText: "Email"),
+                decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.email), hintText: "Email"),
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               TextFormField(
