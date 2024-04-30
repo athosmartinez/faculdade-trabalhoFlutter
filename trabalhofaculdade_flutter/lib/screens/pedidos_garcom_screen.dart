@@ -9,11 +9,38 @@ class PedidosGarcomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: MyAppBar(title: 'Pedidos'),
-      drawer: Drawer(),
-      body: Pedidos(),
-      bottomNavigationBar: BottomNavigation(
+    return Scaffold(
+      appBar: const MyAppBar(title: 'Pedidos'),
+      drawer: Drawer(
+        child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const UserAccountsDrawerHeader(
+            accountEmail: Text("garcom@gmail.com"),
+            accountName: Text("Garçom"),
+            decoration: BoxDecoration(
+              color: Colors.red,
+            ),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.red,
+              child: Text("G", style: TextStyle(fontSize: 20)),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text("Sair", style: TextStyle(fontSize: 18)),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(context, 'loginScreen', (Route<dynamic> route) => false);
+            },
+          ),
+        ],
+      ),
+      ),
+      body: const SingleChildScrollView(
+        child: Pedidos(),
+      ),
+      bottomNavigationBar: const BottomNavigation(
         param1: ParamBottomNavigation(label: "Pedidos", icon: Icons.list_alt, route: "pedidosGarcomScreen"),
         param2: ParamBottomNavigation(label: "Perfil", icon: Icons.person, route: "perfilGarcomScreen")
       )
