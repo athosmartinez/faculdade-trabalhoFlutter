@@ -12,7 +12,7 @@ class ParamBottomNavigation {
   });
 }
 
-class BottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatefulWidget {
   final ParamBottomNavigation param1;
   final ParamBottomNavigation param2;
 
@@ -22,22 +22,41 @@ class BottomNavigation extends StatelessWidget {
     required this.param2,
   });
 
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
+  int _selectedIndex = 0; // Mantém o índice do item selecionado
+
   void navigation(BuildContext context, String route) {
     if (ModalRoute.of(context)?.settings.name != route) {
-      Navigator.pushNamedAndRemoveUntil(context, route, (Route<dynamic> route) => false);
+      Navigator.pushNamed(context, route); // Mudança para pushNamed
+    }
+  }
+
+  void _onItemTapped(int index) {
+    if (_selectedIndex != index) { // Adiciona uma verificação se o índice mudou
+      setState(() {
+        _selectedIndex = index; // Atualiza o índice do item selecionado apenas se mudou
+      });
+      navigation(
+          context,
+          index == 0 ? widget.param1.route : widget.param2.route);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      onTap: (int index) => navigation(context, index == 0 ? param1.route : param1.route),
+      onTap: _onItemTapped,
       backgroundColor: Colors.red,
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.grey,
+      currentIndex: _selectedIndex,
       items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(param1.icon), label: param1.label),
-        BottomNavigationBarItem(icon: Icon(param2.icon), label: param2.label),
+        BottomNavigationBarItem(icon: Icon(widget.param1.icon), label: widget.param1.label),
+        BottomNavigationBarItem(icon: Icon(widget.param2.icon), label: widget.param2.label),
       ],
     );
   }

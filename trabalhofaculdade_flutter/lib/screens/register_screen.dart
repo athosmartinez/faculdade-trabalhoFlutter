@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/bottom_navigation.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/textField.dart';
 
 enum Gender { male, female, other }
@@ -55,14 +56,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icons.person,
                   controller: _nameController,
                 ),
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: Row(
                     children: [
                       const Icon(Icons.transgender),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: Text("Gênero", style:  Theme.of(context).textTheme.bodyMedium,),
+                        child: Text(
+                          "Gênero",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
                     ],
                   ),
@@ -103,37 +107,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != 'loginScreen') {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    'loginScreen',
-                    (Route<dynamic> route) => false,
-                  );
-                }
-              },
-              child: Text('Login', style: Theme.of(context).textTheme.bodyMedium),
-            ),
-            TextButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != 'registerScreen') {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    'registerScreen',
-                    (Route<dynamic> route) => false,
-                  );
-                }
-              },
-              child:  Text('Registrar', style:  Theme.of(context).textTheme.bodyMedium),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(
+          param1: ParamBottomNavigation(
+              label: "Login", icon: Icons.login, route: "loginScreen"),
+          param2: ParamBottomNavigation(
+              label: "Registrar",
+              icon: Icons.app_registration_rounded,
+              route: "registerScreen")),
     );
   }
 }

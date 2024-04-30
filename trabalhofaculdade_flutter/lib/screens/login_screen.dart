@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/bottom_navigation.dart';
 import '../util/valida_login.dart';
 import './components/appBar.dart';
 import './components/textField.dart';
@@ -89,39 +90,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-      // A barra de navegação inferior permanece a mesma
-      bottomNavigationBar: BottomAppBar(
-        
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != 'loginScreen') {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    'loginScreen',
-                    (Route<dynamic> route) => false,
-                  );
-                }
-              },
-              child: Text('Login', style: Theme.of(context).textTheme.bodyMedium),
-            ),
-            TextButton(
-              onPressed: () {
-                if (ModalRoute.of(context)?.settings.name != 'registerScreen') {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    'registerScreen',
-                    (Route<dynamic> route) => false,
-                  );
-                }
-              },
-              child: Text('Registrar', style:  Theme.of(context).textTheme.bodyMedium),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: BottomNavigation(
+          param1: ParamBottomNavigation(
+              label: "Login", icon: Icons.login, route: "loginScreen"),
+          param2: ParamBottomNavigation(
+              label: "Registrar",
+              icon: Icons.app_registration_rounded,
+              route: "registerScreen")),
     );
   }
 }
