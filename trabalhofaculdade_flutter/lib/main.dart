@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/screens/login_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/register_screen.dart';
+import 'package:trabalhofaculdade_flutter/screens/pedidos_garcom_screen.dart';
 import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 
 void main() {
@@ -17,8 +18,9 @@ class MyApp extends StatelessWidget {
       theme: myTheme,
       initialRoute: "loginScreen",
       routes: {
-        "loginScreen": (context) => LoginScreen(),
-        "registerScreen": (context) => RegisterScreen(),
+        "loginScreen": (context) => const LoginScreen(),
+        "registerScreen": (context) => const RegisterScreen(),
+        "pedidosGarcomScreen": (context) => const PedidosGarcomScreen(),
       },
     );
   }

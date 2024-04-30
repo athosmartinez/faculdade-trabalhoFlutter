@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/textField.dart';
+import '../util/valida_login.dart';
+import './components/appBar.dart';
+import './components/textField.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,16 +11,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _obscureText = true;
   bool _rememberMe = false;
 
-  // Criação dos TextEditingControllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    // É importante limpar os controllers quando o widget for desalocado
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -46,8 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
         onPressed: () {
-          // Aqui você pode usar _emailController.text e _passwordController.text
-          // para obter os valores inseridos nos campos de texto
+          validaLogin(context, _emailController.text, _passwordController.text);
         },
         style: ElevatedButton.styleFrom(
           minimumSize: const Size.fromHeight(50),
