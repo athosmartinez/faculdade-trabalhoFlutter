@@ -58,37 +58,40 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const WavyAppBar(),
-      body: Form(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 20),
-                child: Image.asset("assets/images/img_logo.png",
-                    width: 200, height: 200),
-              ),
-              CustomTextFormField(
-                hintText: "Email",
-                prefixIcon: Icons.email,
-                controller: _emailController,
-              ),
-              CustomTextFormField(
-                hintText: 'Senha',
-                prefixIcon: Icons.lock,
-                controller: _passwordController,
-                obscureText: true,
-                isPasswordField: true,
-              ),
-              _buildRememberMeCheckbox(),
-              _buildLoginButton()
-            ],
+      body: SingleChildScrollView(
+        child: Form(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 20),
+                  child: Image.asset("assets/images/img_logo.png",
+                      width: 200, height: 200),
+                ),
+                CustomTextFormField(
+                  hintText: "Email",
+                  prefixIcon: Icons.email,
+                  controller: _emailController,
+                ),
+                CustomTextFormField(
+                  hintText: 'Senha',
+                  prefixIcon: Icons.lock,
+                  controller: _passwordController,
+                  obscureText: true,
+                  isPasswordField: true,
+                ),
+                _buildRememberMeCheckbox(),
+                _buildLoginButton()
+              ],
+            ),
           ),
         ),
       ),
       // A barra de navegação inferior permanece a mesma
       bottomNavigationBar: BottomAppBar(
+        
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -102,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 }
               },
-              child: const Text('Login', style: TextStyle(fontSize: 18)),
+              child: Text('Login', style: Theme.of(context).textTheme.bodyMedium),
             ),
             TextButton(
               onPressed: () {
@@ -114,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 }
               },
-              child: const Text('Registrar', style: TextStyle(fontSize: 18)),
+              child: Text('Registrar', style:  Theme.of(context).textTheme.bodyMedium),
             ),
           ],
         ),

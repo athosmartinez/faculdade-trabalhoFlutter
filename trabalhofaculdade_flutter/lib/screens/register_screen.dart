@@ -55,14 +55,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icons.person,
                   controller: _nameController,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 20.0),
+                 Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Row(
                     children: [
-                      Icon(Icons.transgender),
+                      const Icon(Icons.transgender),
                       Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: Text("Gênero"),
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text("Gênero", style:  Theme.of(context).textTheme.bodyMedium,),
                       ),
                     ],
                   ),
@@ -117,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   );
                 }
               },
-              child: const Text('Login', style: TextStyle(fontSize: 18)),
+              child: Text('Login', style: Theme.of(context).textTheme.bodyMedium),
             ),
             TextButton(
               onPressed: () {
@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   );
                 }
               },
-              child: const Text('Registrar', style: TextStyle(fontSize: 18)),
+              child:  Text('Registrar', style:  Theme.of(context).textTheme.bodyMedium),
             ),
           ],
         ),
