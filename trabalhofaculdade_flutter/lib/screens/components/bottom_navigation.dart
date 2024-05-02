@@ -27,18 +27,18 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0; // Mantém o índice do item selecionado
+  int _selectedIndex = 0;
 
   void navigation(BuildContext context, String route) {
     if (ModalRoute.of(context)?.settings.name != route) {
-      Navigator.pushNamed(context, route); // Mudança para pushNamed
+      Navigator.pushReplacementNamed(context, route);
     }
   }
 
   void _onItemTapped(int index) {
-    if (_selectedIndex != index) { // Adiciona uma verificação se o índice mudou
+    if (_selectedIndex != index) {
       setState(() {
-        _selectedIndex = index; // Atualiza o índice do item selecionado apenas se mudou
+        _selectedIndex = index;
       });
       navigation(
           context,

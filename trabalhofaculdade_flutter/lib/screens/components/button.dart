@@ -14,12 +14,15 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: isFull ? double.infinity : null,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(padding: const EdgeInsets.only(right: 30, left: 30), backgroundColor: Colors.red),
-        child: Text(title),
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: SizedBox(
+        width: isFull ? double.infinity : null,
+        child: ElevatedButton(
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(padding: const EdgeInsets.only(right: 30, left: 30), backgroundColor: Colors.red),
+          child: Text(title),
+        ),
       ),
     );
   }

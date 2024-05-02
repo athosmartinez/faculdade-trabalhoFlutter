@@ -13,7 +13,7 @@ class CustomTextFormField extends StatefulWidget {
   final VoidCallback? togglePasswordVisibility;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.controller,
@@ -23,10 +23,10 @@ class CustomTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.isPasswordField = false,
     this.togglePasswordVisibility,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
@@ -41,7 +41,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 4, bottom: 4),
+      padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: widget.hintText,

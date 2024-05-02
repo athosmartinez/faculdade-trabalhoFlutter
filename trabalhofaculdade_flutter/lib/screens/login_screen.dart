@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/bottom_navigation.dart';
 import '../util/valida_login.dart';
 import './components/appBar.dart';
-import './components/textField.dart';
+import 'components/text_field.dart';
+import 'components/button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -40,21 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginButton() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          validaLogin(context, _emailController.text, _passwordController.text);
-        },
-        style: ElevatedButton.styleFrom(
-          minimumSize: const Size.fromHeight(50),
-        ),
-        child: const Text('Login'),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,14 +48,14 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Form(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 20),
-                  child: Image.asset("assets/images/img_logo.png",
-                      width: 200, height: 200),
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: Image.asset("assets/images/logo.png",
+                      width: 180, height: 180),
                 ),
                 CustomTextFormField(
                   hintText: "Email",
@@ -84,19 +70,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   isPasswordField: true,
                 ),
                 _buildRememberMeCheckbox(),
-                _buildLoginButton()
+                Button(title: 'Login', isFull: true, onPressed: () {
+                  validaLogin(context, _emailController.text, _passwordController.text);
+                }),
               ],
             ),
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigation(
-          param1: ParamBottomNavigation(
-              label: "Login", icon: Icons.login, route: "loginScreen"),
-          param2: ParamBottomNavigation(
-              label: "Registrar",
-              icon: Icons.app_registration_rounded,
-              route: "registerScreen")),
+      bottomNavigationBar: const BottomNavigation(
+        param1: ParamBottomNavigation(label: "Login", icon: Icons.login, route: "loginScreen"),
+        param2: ParamBottomNavigation(label: "Registrar", icon: Icons.app_registration_rounded, route: "registerScreen")
+      ),
     );
   }
 }
