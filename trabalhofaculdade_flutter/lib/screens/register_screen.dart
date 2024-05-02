@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/bottom_navigation.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/text_field.dart';
 
 enum Gender { male, female, other }
@@ -35,9 +33,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const WavyAppBar(),
-      body: SingleChildScrollView(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
         child: Form(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
@@ -79,10 +77,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: const BottomNavigation(
-        param1: ParamBottomNavigation(label: "Login", icon: Icons.login, route: "loginScreen"),
-        param2: ParamBottomNavigation(label: "Registrar", icon: Icons.app_registration_rounded, route: "registerScreen")
       ),
     );
   }

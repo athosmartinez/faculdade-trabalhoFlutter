@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trabalhofaculdade_flutter/screens/login_screen.dart';
-import 'package:trabalhofaculdade_flutter/screens/register_screen.dart';
+import 'package:trabalhofaculdade_flutter/screens/inicial_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/pedidos_garcom_screen.dart';
 import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 
@@ -16,10 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: myTheme,
-      initialRoute: "loginScreen",
+      initialRoute: "inicialScreen",
       routes: {
-        "loginScreen": (context) => const LoginScreen(),
-        "registerScreen": (context) => const RegisterScreen(),
+        "inicialScreen": (context) => const InicialScreen(),
         "pedidosGarcomScreen": (context) => const PedidosGarcomScreen(),
       },
     );
