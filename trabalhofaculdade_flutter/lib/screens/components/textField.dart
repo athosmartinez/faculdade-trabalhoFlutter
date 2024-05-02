@@ -13,7 +13,7 @@ class CustomTextFormField extends StatefulWidget {
   final VoidCallback? togglePasswordVisibility;
 
   const CustomTextFormField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.prefixIcon,
     required this.controller,
@@ -23,7 +23,7 @@ class CustomTextFormField extends StatefulWidget {
     this.suffixIcon,
     this.isPasswordField = false,
     this.togglePasswordVisibility,
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();

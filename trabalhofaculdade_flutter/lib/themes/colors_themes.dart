@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ThemeColors {
-  static const MaterialColor primaryColor = Colors.purple;
-  static const List<Color> headerGradient = [
-    Color.fromRGBO(12, 5, 235, 1),
-    Color.fromRGBO(50, 4, 142, 1),
-    Color.fromRGBO(2, 8, 73, 1)
-  ];
-  static const Map<String, Color> recentActivity = {
-    'spent': Color.fromRGBO(255, 175, 29, 1),
-    'income': Color.fromRGBO(191, 69, 198, 1)
-  };
+class ThemeColors {}
 
-  static const Map<String, Color> accountPoints = {
-    'first': Color.fromRGBO(250, 0, 112, 1),
-    'second': Color.fromRGBO(75, 89, 191, 1)
-  };
+class BottomColors {
+  static Color buttonForeground = Colors.white;
+  static Color buttonBackground = const Color(0xFF6750A4);
+  static Color drawerFontColor = const Color(0xFF49454F);
+  static Color drawerIconColor = const Color(0xFF1C1B1F);
+  static Color counterButtonColor = const Color(0xFFCCB6DB);
+  static Color? bottomNavigationBarIconColor = Colors.grey[800];
+  static Color paymentMethodCardNumberColor = const Color(0xFF9C9C9C);
+  static Color paymentMethodReceiptColor = const Color(0xFF9D9D9D);
 
-  static const divisonColor = Color.fromRGBO(166, 166, 166, 1);
+  static ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      elevation: 0,
+      foregroundColor: buttonForeground,
+      backgroundColor: buttonBackground);
 }

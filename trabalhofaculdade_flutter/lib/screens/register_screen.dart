@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/appBar.dart';
-import 'package:trabalhofaculdade_flutter/screens/components/bottom_navigation.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/textField.dart';
 
 enum Gender { male, female, other }
@@ -30,8 +28,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  bool _obscureText = true;
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -40,9 +36,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const WavyAppBar(),
-      body: SingleChildScrollView(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SingleChildScrollView(
         child: Form(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -107,13 +103,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigation(
-          param1: ParamBottomNavigation(
-              label: "Login", icon: Icons.login, route: "loginScreen"),
-          param2: ParamBottomNavigation(
-              label: "Registrar",
-              icon: Icons.app_registration_rounded,
-              route: "registerScreen")),
     );
   }
 }
