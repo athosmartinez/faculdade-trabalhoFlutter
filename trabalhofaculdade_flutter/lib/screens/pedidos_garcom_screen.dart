@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './components/bottom_navigation.dart';
 import './components/app_bar_interna.dart';
 import './components/list_items.dart';
 import './components/button.dart';
 
-class PedidosGarcomScreen extends StatelessWidget {
+class PedidosGarcomScreen extends StatefulWidget {
   const PedidosGarcomScreen({super.key});
+
+  @override
+  State<PedidosGarcomScreen> createState() => _PedidosGarcomScreenState();
+}
+
+class _PedidosGarcomScreenState extends State<PedidosGarcomScreen> {
+  String? userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserEmail();
+  }
+
+  Future<void> _loadUserEmail() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userEmail = prefs.getString('UserEmail');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +36,13 @@ class PedidosGarcomScreen extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              const UserAccountsDrawerHeader(
-                accountEmail: Text("garcom@gmail.com"),
-                accountName: Text("Garçom"),
-                decoration: BoxDecoration(
+              UserAccountsDrawerHeader(
+                accountEmail: Text(userEmail ?? ''),
+                accountName: const Text("Garçom"),
+                decoration: const BoxDecoration(
                   color: Colors.red,
                 ),
-                currentAccountPicture: CircleAvatar(
+                currentAccountPicture: const CircleAvatar(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.red,
                   child: Text("G", style: TextStyle(fontSize: 20)),

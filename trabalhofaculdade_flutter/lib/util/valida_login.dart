@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void validaLogin(BuildContext context, String email, String senha) {
+Future<void> validaLogin(BuildContext context, String email, String senha) async {
+  
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  await prefs.setString('UserEmail', email);
+
   if (email == "garcom@gmail.com" && senha == "123456") {
     Navigator.of(context).pushNamed("pedidosGarcomScreen");
     return;
