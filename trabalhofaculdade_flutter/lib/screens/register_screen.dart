@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:trabalhofaculdade_flutter/model/funcao.dart';
+import 'package:trabalhofaculdade_flutter/model/user_register.dart';
+import 'package:trabalhofaculdade_flutter/screens/components/button.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/text_field.dart';
-
-enum Gender { male, female, other }
+import 'package:trabalhofaculdade_flutter/supabase/register.dart';
+import 'package:trabalhofaculdade_flutter/util/message.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,25 +14,36 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  Gender? _gender = Gender.other; // Valor padrão
+  bool _isLoading = false;
+  UserRegister userRegistration = UserRegister();
 
-  Widget _buildGenderRadio(String title, Gender value) {
-    return RadioListTile<Gender>(
+  Future<void> _register(BuildContext context) async {
+    try {
+      setState(() => _isLoading = true);
+      await register(context, userRegistration);
+      userRegistration = UserRegister();
+    } on Exception catch (error) {
+      if (context.mounted) {
+        messageError(context, error.toString());
+      }
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  Widget _buildFuncaoRadio(String title, Funcao value) {
+    return RadioListTile<Funcao>(
       title: Text(title),
-      value: value,
-      groupValue: _gender,
-      onChanged: (Gender? newValue) {
-        setState(() {
-          _gender = newValue!;
-        });
-      },
       dense: true,
+      value: value,
+      groupValue: userRegistration.funcao,
+      onChanged: (Funcao? newValue) {
+        setState(() => userRegistration.funcao = newValue);
+      },
     );
   }
 
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,27 +51,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
       padding: const EdgeInsets.all(8.0),
       child: SingleChildScrollView(
         child: Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Image.asset("assets/images/logo.png",
-                    width: 180, height: 180),
+                Image.asset("assets/images/logo.png", width: 180, height: 180),
                 CustomTextFormField(
-                  hintText: "Nome",
+                  hintText: 'Nome',
                   prefixIcon: Icons.person,
-                  controller: _nameController,
+                  controller: userRegistration.nome,
                 ),
                 CustomTextFormField(
-                  hintText: "E-mail",
+                  hintText: 'E-mail',
                   prefixIcon: Icons.email,
-                  controller: _emailController,
+                  controller: userRegistration.email,
                 ),
                 CustomTextFormField(
                   hintText: 'Senha',
                   prefixIcon: Icons.lock,
-                  controller: _passwordController,
+                  controller: userRegistration.senha,
                   obscureText: true,
                   isPasswordField: true,
                 ),
@@ -70,9 +84,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ],
                 ),
-                _buildGenderRadio('Garçom', Gender.male),
-                _buildGenderRadio('Cozinheiro', Gender.female),
-                _buildRegisterButton()
+                FormField<Funcao>(
+                  builder: (FormFieldState<Funcao> state) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _buildFuncaoRadio('Garçom', Funcao.garcom),
+                        _buildFuncaoRadio('Cozinheiro', Funcao.cozinheiro),
+                        if (state.hasError)
+                          Text(
+                            state.errorText!,
+                            style: const TextStyle(color: Colors.red, fontSize: 12),
+                          ),
+                      ],
+                    );
+                  },
+                  validator: (value) => userRegistration.funcao == null ? 'Informe a Função!' : null,
+                ),
+                Button(title: 'Registrar', isFull: true, onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    _isLoading ? null : _register(context);
+                  } else {
+                    messageError(context, 'Informe os dados para registrar!');
+                  }
+                }),
               ],
             ),
           ),
@@ -80,20 +115,4 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
-}
-
-Widget _buildRegisterButton() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-    child: ElevatedButton(
-      onPressed: () {
-        // Aqui você pode usar _emailController.text e _passwordController.text
-        // para obter os valores inseridos nos campos de texto
-      },
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(50),
-      ),
-      child: const Text('Registrar'),
-    ),
-  );
 }

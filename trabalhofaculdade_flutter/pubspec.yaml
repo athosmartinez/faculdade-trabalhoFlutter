@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  supabase_flutter: ^2.0.0
   flutter:
     sdk: flutter
 
@@ -58,7 +59,7 @@ flutter:
     - assets/images/
   fonts:
     - family: Cambay
-      fonts: 
+      fonts:
         - asset: fonts/Cambay-Regular.ttf
           weight: 400
 

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:trabalhofaculdade_flutter/supabase/config.dart';
+import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 import 'package:trabalhofaculdade_flutter/screens/inicial_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/pedidos_garcom_screen.dart';
-import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await configSupabase();
   runApp(const MyApp());
 }
 

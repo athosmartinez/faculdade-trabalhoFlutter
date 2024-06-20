@@ -66,6 +66,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         inputFormatters: widget.inputFormatters,
         obscureText: _obscureText,
         style: Theme.of(context).textTheme.bodyMedium,
+        validator: (value) =>
+            value == null || value.isEmpty ? 'Informe o ${widget.hintText}!' : null,
       ),
     );
   }
