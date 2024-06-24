@@ -29,9 +29,14 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
 
-  void navigation(BuildContext context, String route) {
-    if (ModalRoute.of(context)?.settings.name != route) {
-      Navigator.pushReplacementNamed(context, route);
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final String? currentRoute = ModalRoute.of(context)?.settings.name;
+    if (currentRoute == widget.param1.route) {
+      _selectedIndex = 0;
+    } else if (currentRoute == widget.param2.route) {
+      _selectedIndex = 1;
     }
   }
 
@@ -40,9 +45,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
       setState(() {
         _selectedIndex = index;
       });
-      navigation(
-          context,
-          index == 0 ? widget.param1.route : widget.param2.route);
+      final String route = index == 0 ? widget.param1.route : widget.param2.route;
+      Navigator.pushReplacementNamed(context, route);
     }
   }
 
