@@ -3,7 +3,7 @@ import './components/list_items.dart';
 import 'package:flutter/material.dart';
 import './components/bottom_navigation.dart';
 import './components/app_bar_interna.dart';
-import '../screens//components/drawer.dart';
+import '../screens/components/drawer.dart';
 
 class PedidosGarcomScreen extends StatefulWidget {
   const PedidosGarcomScreen({super.key});

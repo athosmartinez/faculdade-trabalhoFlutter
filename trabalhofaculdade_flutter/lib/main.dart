@@ -3,6 +3,7 @@ import 'package:trabalhofaculdade_flutter/supabase/config.dart';
 import 'package:trabalhofaculdade_flutter/themes/my_theme.dart';
 import 'package:trabalhofaculdade_flutter/screens/inicial_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/pedidos_garcom_screen.dart';
+import 'package:trabalhofaculdade_flutter/screens/perfil_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "inicialScreen": (context) => const InicialScreen(),
         "pedidosGarcomScreen": (context) => const PedidosGarcomScreen(),
+        "perfilGarcomScreen": (context) => const PerfilScreen(),
       },
     );
   }
