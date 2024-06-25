@@ -17,8 +17,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> _updateProfile(BuildContext context) async {
     setState(() => _isLoading = true);
-    await updateProfile(context, user);
-    setState(() => _isLoading = false);
+
+    // Verifica se o email antigo e a senha antiga foram fornecidos
+    if (user.emailAntigo.text.isEmpty || user.senhaAntiga.text.isEmpty) {
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Por favor, forneça o email antigo e a senha antiga.'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    try {
+      await updateProfile(context, user);
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao atualizar perfil: $error'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
@@ -58,7 +81,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       controller: user.nome,
                     ),
                     CustomTextFormField(
-                      hintText: 'Email Antigo',
+                      hintText: 'Email Atual',
                       prefixIcon: Icons.email,
                       controller: user.emailAntigo,
                     ),
@@ -68,7 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       controller: user.emailNovo,
                     ),
                     CustomTextFormField(
-                      hintText: 'Senha Antiga',
+                      hintText: 'Senha Atual',
                       prefixIcon: Icons.lock,
                       controller: user.senhaAntiga,
                       obscureText: true,
@@ -82,6 +105,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       isPasswordField: true,
                     ),
                     const SizedBox(height: 20),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        'Para salvar as alterações, forneça o email antigo e a senha antiga.',
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         if (!_isLoading) {

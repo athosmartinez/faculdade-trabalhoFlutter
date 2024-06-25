@@ -10,6 +10,7 @@ Future<void> updateProfile(BuildContext context, EditUser user) async {
     final userEmail = user.emailAntigo.text;
     final oldPassword = user.senhaAntiga.text;
 
+  
     final response = await supabase.from('usuario')
       .select('id, nome, email, senha')
       .eq('email', userEmail)
@@ -26,13 +27,25 @@ Future<void> updateProfile(BuildContext context, EditUser user) async {
     final updatedEmail = user.emailNovo.text.isNotEmpty ? user.emailNovo.text : currentUser['email'];
     final updatedSenha = user.senhaNova.text.isNotEmpty ? user.senhaNova.text : currentUser['senha'];
 
+    if (updatedEmail != currentUser['email']) {
+      final emailCheckResponse = await supabase.from('usuario')
+        .select('id')
+        .eq('email', updatedEmail)
+        .maybeSingle();
+
+      if (emailCheckResponse != null && emailCheckResponse.isNotEmpty) {
+        throw const AuthException('Email já está em uso por outro usuário');
+      }
+    }
+
+   
     await supabase.from('usuario')
       .update({
         'nome': updatedNome,
         'email': updatedEmail,
         'senha': updatedSenha,
       })
-      .eq('email', userEmail);
+      .eq('id', currentUser['id']); 
 
     if (context.mounted) {
       messageSuccess(context, "Perfil atualizado com sucesso!");
