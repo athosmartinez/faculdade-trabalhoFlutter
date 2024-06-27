@@ -13,7 +13,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   String letter = user?.nome != null ? user!.nome.substring(0, 1) : '';
 
   bool isGarcom() {
-    return user != null && user!.funcao == Funcao.garcom; 
+    return user != null && user!.funcao == Funcao.garcom;
   }
 
   @override
