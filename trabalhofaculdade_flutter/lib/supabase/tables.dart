@@ -13,7 +13,6 @@ Future<void> addTable(String tableNumber) async {
       throw Exception('Mesa com o número $tableNumber já existe.');
     }
 
-    // Se não existir, insere a nova mesa
     await supabase.from('mesa').insert({'numero': tableNumber});
   } on Exception catch (error) {
     throw Exception('Erro ao adicionar mesa: $error');
