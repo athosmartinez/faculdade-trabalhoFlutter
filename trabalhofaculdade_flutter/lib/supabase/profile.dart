@@ -38,7 +38,6 @@ Future<void> updateProfile(BuildContext context, EditUser user) async {
       }
     }
 
-   
     await supabase.from('usuario')
       .update({
         'nome': updatedNome,

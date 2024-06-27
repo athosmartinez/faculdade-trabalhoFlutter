@@ -3,6 +3,11 @@ import 'package:trabalhofaculdade_flutter/model/edit_user.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/text_field.dart';
 import 'package:trabalhofaculdade_flutter/supabase/profile.dart';
 
+// Importações adicionais
+import '../screens/components/app_bar_interna.dart';
+import '../screens/components/drawer.dart';
+import '../screens/components/bottom_navigation.dart';
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
 
@@ -15,14 +20,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   
   bool _isLoading = false;
 
-  Future<void> _updateProfile(BuildContext context) async {
+  Future<void> _updateProfile(BuildContext context, EditUser user) async {
     setState(() => _isLoading = true);
 
     // Verifica se o email antigo e a senha antiga foram fornecidos
     if (user.emailAntigo.text.isEmpty || user.senhaAntiga.text.isEmpty) {
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Por favor, forneça o email antigo e a senha antiga.'),
           backgroundColor: Colors.red,
         ),
@@ -47,15 +52,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Perfil'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(); 
-          },
-        ),
-      ),
+      appBar: const MyAppBar(title: 'Perfil'),
+      drawer: const DrawerScreen(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Padding(
@@ -107,7 +105,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     const SizedBox(height: 20),
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
+                      child: const Text(
                         'Para salvar as alterações, forneça o email antigo e a senha antiga.',
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
@@ -116,7 +114,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (!_isLoading) {
-                          _updateProfile(context);
+                          _updateProfile(context, user);
                         }
                       },
                       child: const Text('Salvar'),
@@ -125,6 +123,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
             ),
+      bottomNavigationBar: const BottomNavigation(
+        param1: ParamBottomNavigation(
+          label: "Pedidos",
+          icon: Icons.list_alt,
+          route: "pedidosGarcomScreen",
+        ),
+        param2: ParamBottomNavigation(
+          label: "Perfil",
+          icon: Icons.person,
+          route: "perfilGarcomScreen",
+        ),
+      ),
     );
   }
 }
