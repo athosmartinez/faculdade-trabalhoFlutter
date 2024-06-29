@@ -14,6 +14,7 @@ class TablesScreen extends StatefulWidget {
 
 class _TablesScreenState extends State<TablesScreen> {
   List<String> tables = [];
+  int _currentIndex = 0;
 
   Future<void> _addTable(BuildContext context) async {
     TableModel newTable = TableModel();
@@ -85,10 +86,23 @@ class _TablesScreenState extends State<TablesScreen> {
     });
   }
 
+  void _onBottomNavTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+    if (index == 0) {
+      Navigator.pushNamed(context, 'pedidosGarcomScreen');
+    } else if (index == 1) {
+      Navigator.pushNamed(context, 'perfilGarcomScreen');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(title: 'Mesas'),
+      appBar: MyAppBar(
+        title: 'Mesas',
+      ),
       drawer: const DrawerScreen(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -138,17 +152,22 @@ class _TablesScreenState extends State<TablesScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: const BottomNavigation(
-        param1: ParamBottomNavigation(
-          label: "Pedidos",
-          icon: Icons.list_alt,
-          route: "pedidosGarcomScreen",
-        ),
-        param2: ParamBottomNavigation(
-          label: "Perfil",
-          icon: Icons.person,
-          route: "perfilGarcomScreen",
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _onBottomNavTapped,
+        backgroundColor: Colors.red, 
+        selectedItemColor: Colors.grey, 
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list_alt),
+            label: 'Pedidos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Perfil',
+          ),
+        ],
       ),
     );
   }
