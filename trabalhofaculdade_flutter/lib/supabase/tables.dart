@@ -2,7 +2,6 @@ import 'package:trabalhofaculdade_flutter/supabase/config.dart';
 
 Future<void> addTable(String tableNumber) async {
   try {
-
     final response = await supabase
         .from('mesa')
         .select()
@@ -10,12 +9,12 @@ Future<void> addTable(String tableNumber) async {
         .maybeSingle();
 
     if (response != null) {
-      throw Exception('Mesa com o número $tableNumber já existe.');
+      throw 'Mesa com o número $tableNumber já existe.';
     }
 
     await supabase.from('mesa').insert({'numero': tableNumber});
-  } on Exception catch (error) {
-    throw Exception('Erro ao adicionar mesa: $error');
+  } catch (error) {
+    throw 'Erro ao adicionar mesa: ${error.toString()}';
   }
 }
 
@@ -24,15 +23,15 @@ Future<List<String>> fetchTables() async {
     final response = await supabase.from('mesa').select('numero');
     List<String> tables = (response as List).map<String>((row) => row['numero'].toString()).toList();
     return tables;
-  } on Exception catch (error) {
-    throw Exception('Erro ao buscar mesas: $error');
+  } catch (error) {
+    throw 'Erro ao buscar mesas: ${error.toString()}';
   }
 }
 
 Future<void> deleteTable(String tableNumber) async {
   try {
     await supabase.from('mesa').delete().eq('numero', tableNumber);
-  } on Exception catch (error) {
-    throw Exception('Erro ao deletar mesa: $error');
+  } catch (error) {
+    throw 'Erro ao deletar mesa: ${error.toString()}';
   }
 }
