@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/model/add_table.dart';
+import 'package:trabalhofaculdade_flutter/screens/table_details_screen.dart';
 import 'package:trabalhofaculdade_flutter/supabase/tables.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/drawer.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/app_bar_interna.dart';
@@ -112,25 +113,30 @@ class _TablesScreenState extends State<TablesScreen> {
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  childAspectRatio: 2,
+                  childAspectRatio: 1,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
                 ),
                 itemCount: tables.length,
                 itemBuilder: (context, index) {
-                  return Card(
-                    color: Colors.green,
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            tables[index],
-                            style: const TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.white),
-                            onPressed: () => _deleteTable(tables[index]),
-                          ),
-                        ],
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => TableDetailsScreen(
+                                  tableNumber: tables[index])));
+                    },
+                    onLongPress: () => _deleteTable(tables[index]),
+                    child: Card(
+                      color: index < 3 ? Colors.red : Colors.green,
+                      child: Center(
+                        child: Text(
+                          tables[index],
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold),
+                       
+                        ),
                       ),
                     ),
                   );
@@ -141,11 +147,12 @@ class _TablesScreenState extends State<TablesScreen> {
               alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () => _addTable(context),
-                child: const Text('Adicionar Mesa'),
+                child: const Text('Nova mesa'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red, 
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20), 
-                  textStyle: const TextStyle(fontSize: 18), 
+                  backgroundColor: Colors.red,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(fontSize: 18),
                 ),
               ),
             ),
@@ -155,8 +162,8 @@ class _TablesScreenState extends State<TablesScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: _onBottomNavTapped,
-        backgroundColor: Colors.red, 
-        selectedItemColor: Colors.grey, 
+        backgroundColor: Colors.red,
+        selectedItemColor: Colors.grey,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
