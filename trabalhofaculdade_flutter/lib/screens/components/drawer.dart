@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trabalhofaculdade_flutter/model/funcao.dart'; // Importe o arquivo onde Funcao está definido
-import 'package:trabalhofaculdade_flutter/util/globals.dart'; // Importe o arquivo onde user está definido
+import 'package:trabalhofaculdade_flutter/model/funcao.dart'; 
+import 'package:trabalhofaculdade_flutter/util/globals.dart'; 
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
