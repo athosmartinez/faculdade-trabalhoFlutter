@@ -19,7 +19,7 @@ class _CozinheiroScreenState extends State<CozinheiroScreen> {
         appBar: MyAppBar(title: 'Pedidos'),
         drawer: DrawerScreen(),
         body: SingleChildScrollView(
-          child: Pedidos(),
+          child: Pedidos(role: UserRole.cozinheiro), // Passa UserRole.cozinheiro
         ),
         bottomNavigationBar: BottomNavigation(
           param1: ParamBottomNavigation(
@@ -33,7 +33,9 @@ class _CozinheiroScreenState extends State<CozinheiroScreen> {
 }
 
 class Pedidos extends StatefulWidget {
-  const Pedidos({super.key});
+  final UserRole role;
+
+  const Pedidos({super.key, required this.role});
 
   @override
   State<Pedidos> createState() => _PedidosState();
@@ -44,15 +46,15 @@ class _PedidosState extends State<Pedidos> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(20),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Pedidos em andamento '),
-          ListItems(),
-          SizedBox(height: 20),
-          Text('Pedidos Finalizados'),
-          ListItems(),
+          const Text('Pedidos em andamento '),
+          ListItems(role: widget.role), // Passa UserRole.cozinheiro
+          const SizedBox(height: 20),
+          const Text('Pedidos Finalizados'),
+          ListItems(role: widget.role), // Passa UserRole.cozinheiro
         ],
       ),
     );

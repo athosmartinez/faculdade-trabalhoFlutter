@@ -19,7 +19,7 @@ class _PedidosGarcomScreenState extends State<PedidosGarcomScreen> {
         appBar: MyAppBar(title: 'Pedidos'),
         drawer: DrawerScreen(),
         body: SingleChildScrollView(
-          child: Pedidos(),
+          child: Pedidos(role: UserRole.garcom), // Passa UserRole.garcom
         ),
         bottomNavigationBar: BottomNavigation(
           param1: ParamBottomNavigation(
@@ -33,7 +33,9 @@ class _PedidosGarcomScreenState extends State<PedidosGarcomScreen> {
 }
 
 class Pedidos extends StatefulWidget {
-  const Pedidos({super.key});
+  final UserRole role;
+
+  const Pedidos({super.key, required this.role});
 
   @override
   State<Pedidos> createState() => _PedidosState();
@@ -44,19 +46,19 @@ class _PedidosState extends State<Pedidos> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(20),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Em preparo'),
-          ListItems(),
-          SizedBox(height: 20),
-          Text('Prontos para a entrega'),
-          ListItems(),
-          SizedBox(height: 20),
-          Text('Pedidos entregues'),
-          ListItems(),
-          SizedBox(height: 20),
+          const Text('Em preparo'),
+          ListItems(role: widget.role), // Passa UserRole.garcom
+          const SizedBox(height: 20),
+          const Text('Prontos para a entrega'),
+          ListItems(role: widget.role), // Passa UserRole.garcom
+          const SizedBox(height: 20),
+          const Text('Pedidos entregues'),
+          ListItems(role: widget.role), // Passa UserRole.garcom
+          const SizedBox(height: 20),
           Button(title: 'Novo Pedido', isFull: true),
         ],
       ),

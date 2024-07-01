@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import './button.dart';
 
-class ListItems extends StatelessWidget{
+enum UserRole { garcom, cozinheiro }
+
+class ListItems extends StatelessWidget {
+  final UserRole role;
+
   const ListItems({
-    super.key,
-  });
+    Key? key,
+    required this.role,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,39 +18,36 @@ class ListItems extends StatelessWidget{
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: <Widget>[
-          Container(
-            width: 250,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 1.5),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin: const EdgeInsets.only(right: 15),
-            child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Salada Ravanello'),
-                Text('Mesa 5'),
-                Button(title: 'Entregue'),
-              ],
-            ),
-          ),
-          Container(
-            width: 250,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 1.5),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            margin: const EdgeInsets.only(right: 15),
-              child: const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Salada Ravanello'),
-                Text('Mesa 5'),
-                Button(title: 'Entregue'),
-              ],
-            ),
-          ),
+          _buildItem(context),
+          _buildItem(context),
+        ],
+      ),
+    );
+  }
 
+  Widget _buildItem(BuildContext context) {
+    return Container(
+      width: 250,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1.5),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      margin: const EdgeInsets.only(right: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Text('Salada Ravanello'),
+          const Text('Mesa 5'),
+          Button(
+            title: role == UserRole.cozinheiro ? 'Visualizar' : 'Entregue',
+            onPressed: () {
+              if (role == UserRole.cozinheiro) {
+                Navigator.pushNamed(context, 'pratoCozinheiroScreen');
+              } else {
+                // Lógica para garçom
+              }
+            },
+          ),
         ],
       ),
     );
