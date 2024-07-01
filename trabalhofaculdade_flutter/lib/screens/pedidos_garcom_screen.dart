@@ -25,13 +25,9 @@ class _PedidosGarcomScreenState extends State<PedidosGarcomScreen> {
           param1: ParamBottomNavigation(
               label: "Pedidos",
               icon: Icons.list_alt,
-              route: "pedidosGarcomScreen"
-          ),
+              route: "pedidosGarcomScreen"),
           param2: ParamBottomNavigation(
-              label: "Perfil",
-              icon: Icons.person,
-              route: "perfilGarcomScreen"
-          ),
+              label: "Perfil", icon: Icons.person, route: "perfilGarcomScreen"),
         ));
   }
 }
@@ -52,6 +48,9 @@ class _PedidosState extends State<Pedidos> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Text('Em preparo'),
+          ListItems(),
+          SizedBox(height: 20),
           Text('Prontos para a entrega'),
           ListItems(),
           SizedBox(height: 20),
