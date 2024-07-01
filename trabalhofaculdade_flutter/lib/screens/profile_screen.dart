@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:trabalhofaculdade_flutter/model/edit_user.dart';
 import 'package:trabalhofaculdade_flutter/screens/components/text_field.dart';
 import 'package:trabalhofaculdade_flutter/supabase/profile.dart';
-
+import 'package:trabalhofaculdade_flutter/model/funcao.dart';
+import 'package:trabalhofaculdade_flutter/util/globals.dart'; // Importar o arquivo onde user está definido
 // Importações adicionais
 import '../screens/components/app_bar_interna.dart';
 import '../screens/components/drawer.dart';
@@ -16,14 +17,12 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final EditUser user = EditUser();
+  final EditUser editUser = EditUser();
   
   bool _isLoading = false;
 
   Future<void> _updateProfile(BuildContext context, EditUser user) async {
     setState(() => _isLoading = true);
-
-    // Verifica se o email antigo e a senha antiga foram fornecidos
     if (user.emailAntigo.text.isEmpty || user.senhaAntiga.text.isEmpty) {
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -47,6 +46,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     } finally {
       setState(() => _isLoading = false);
     }
+  }
+
+  bool isGarcom() {
+    return user != null && user!.funcao == Funcao.garcom;
+  }
+
+  bool isCozinheiro() {
+    return user != null && user!.funcao == Funcao.cozinheiro;
   }
 
   @override
@@ -76,29 +83,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     CustomTextFormField(
                       hintText: 'Nome',
                       prefixIcon: Icons.person,
-                      controller: user.nome,
+                      controller: editUser.nome,
                     ),
                     CustomTextFormField(
                       hintText: 'Email Atual',
                       prefixIcon: Icons.email,
-                      controller: user.emailAntigo,
+                      controller: editUser.emailAntigo,
                     ),
                     CustomTextFormField(
                       hintText: 'Email Novo',
                       prefixIcon: Icons.email,
-                      controller: user.emailNovo,
+                      controller: editUser.emailNovo,
                     ),
                     CustomTextFormField(
                       hintText: 'Senha Atual',
                       prefixIcon: Icons.lock,
-                      controller: user.senhaAntiga,
+                      controller: editUser.senhaAntiga,
                       obscureText: true,
                       isPasswordField: true,
                     ),
                     CustomTextFormField(
                       hintText: 'Senha Nova',
                       prefixIcon: Icons.lock,
-                      controller: user.senhaNova,
+                      controller: editUser.senhaNova,
                       obscureText: true,
                       isPasswordField: true,
                     ),
@@ -114,7 +121,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (!_isLoading) {
-                          _updateProfile(context, user);
+                          _updateProfile(context, editUser);
                         }
                       },
                       child: const Text('Salvar'),
@@ -123,13 +130,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
             ),
-      bottomNavigationBar: const BottomNavigation(
+      bottomNavigationBar: BottomNavigation(
         param1: ParamBottomNavigation(
           label: "Pedidos",
           icon: Icons.list_alt,
-          route: "pedidosGarcomScreen",
+          route: isCozinheiro() ? "cozinheiroScreen" : "pedidosGarcomScreen",
         ),
-        param2: ParamBottomNavigation(
+        param2: const ParamBottomNavigation(
           label: "Perfil",
           icon: Icons.person,
           route: "perfilGarcomScreen",
