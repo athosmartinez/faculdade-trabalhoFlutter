@@ -119,23 +119,27 @@ class _TablesScreenState extends State<TablesScreen> {
                 ),
                 itemCount: tables.length,
                 itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => TableDetailsScreen(
-                                  tableNumber: tables[index])));
-                    },
-                    onLongPress: () => _deleteTable(tables[index]),
-                    child: Card(
-                      color: index < 3 ? Colors.red : Colors.green,
-                      child: Center(
-                        child: Text(
-                          tables[index],
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold),
-                       
+                  return MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TableDetailsScreen(
+                                    tableNumber: tables[index])));
+                      },
+                      onLongPress: () => _deleteTable(tables[index]),
+                      child: Card(
+                        color: index < 3 ? Colors.red : Colors.green,
+                        child: Center(
+                          child: Text(
+                            tables[index],
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
