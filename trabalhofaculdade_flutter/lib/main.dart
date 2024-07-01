@@ -5,6 +5,7 @@ import 'package:trabalhofaculdade_flutter/screens/inicial_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/pedidos_garcom_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/profile_screen.dart';
 import 'package:trabalhofaculdade_flutter/screens/tables_screen.dart';
+import 'package:trabalhofaculdade_flutter/screens/chef_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
         "pedidosGarcomScreen": (context) => const PedidosGarcomScreen(),
         "perfilGarcomScreen": (context) => const EditProfileScreen(),
         "mesasScreen": (context) => const TablesScreen(),
+        "cozinheiroScreen": (context) => const CozinheiroScreen(),
       },
     );
   }

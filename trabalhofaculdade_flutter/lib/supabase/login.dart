@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:trabalhofaculdade_flutter/model/user_register.dart';
-
+import 'package:trabalhofaculdade_flutter/model/funcao.dart';
 import '../util/globals.dart';
 import '../model/user_login.dart';
 import '../util/message.dart';
@@ -21,10 +21,15 @@ Future<void> signIn(BuildContext context, UserRegister dados) async {
     }
 
     user = UserLogin.fromList(list[0]);
-
-    if (context.mounted) {
+    
+    if(context.mounted){
+      if (user != null && user!.funcao == Funcao.garcom) {
       Navigator.of(context).pushNamed("pedidosGarcomScreen");
+    }else{
+      Navigator.of(context).pushNamed("cozinheiroScreen");
     }
+     }
+    
   } on AuthException {
     if (context.mounted) {
       messageError(context, 'Usuário ou senha inválidos!');
